@@ -51,9 +51,10 @@ function initWhatsApp(io) {
     io.emit('status', 'disconnected');
   });
 
-  client.on('message_create', async (message) => {
-    // Avoid responding to self or status updates
-    if (message.fromMe || message.isStatus) return;
+  client.on('message', async (message) => {
+  if (message.isStatus) return;
+
+  console.log('📩 Incoming message:', message.body);
 
     const botEnabled = db.prepare("SELECT value FROM settings WHERE key = 'bot_enabled'").get().value === 'true';
     
