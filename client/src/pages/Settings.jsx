@@ -17,7 +17,7 @@ const Settings = () => {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/api/settings', {
+        const res = await axios.get('/api/settings', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSettings(prev => ({ ...prev, ...res.data }));
@@ -35,7 +35,7 @@ const Settings = () => {
   const saveSettings = async () => {
     setLoading(true);
     try {
-      await axios.post('http://localhost:3001/api/settings/bulk', settings, {
+      await axios.post('/api/settings/bulk', settings, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('Settings saved successfully');
