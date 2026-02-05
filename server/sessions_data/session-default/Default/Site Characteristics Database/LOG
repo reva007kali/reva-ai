@@ -1,2 +1,3 @@
-2026/02/05-12:07:25.201 1a7c Creating DB C:\Coding\reva-ai\server\sessions_data\session-default\Default\Site Characteristics Database since it was missing.
-2026/02/05-12:07:25.217 1a7c Reusing MANIFEST C:\Coding\reva-ai\server\sessions_data\session-default\Default\Site Characteristics Database/MANIFEST-000001
+2026/02/05-13:59:24.534 1344 Reusing MANIFEST C:\Coding\reva-ai\server\sessions_data\session-default\Default\Site Characteristics Database/MANIFEST-000001
+2026/02/05-13:59:24.542 1344 Recovering log #3
+2026/02/05-13:59:24.544 1344 Reusing old log C:\Coding\reva-ai\server\sessions_data\session-default\Default\Site Characteristics Database/000003.log 
