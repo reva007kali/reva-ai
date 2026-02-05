@@ -52,8 +52,15 @@ function updateTokenUsage(tokens) {
 
 // RAG + Generation
 async function generateResponse(userMessage, remoteJid) {
+  console.log('Generating response for:', userMessage.substring(0, 50));
+  if (!OPENAI_API_KEY) {
+    console.error('CRITICAL: OPENAI_API_KEY is missing in environment variables!');
+    return "I am currently unable to reply because my configuration is incomplete.";
+  }
+
   // 1. Check Token Limit (Estimate input tokens roughly)
   if (!checkTokenLimit(100)) { // Minimal check
+    console.warn('Token limit reached');
     return "System Error: Daily token limit reached.";
   }
 
@@ -79,6 +86,7 @@ async function generateResponse(userMessage, remoteJid) {
   // Sort by score and take top 3
   scoredKnowledge.sort((a, b) => b.score - a.score);
   const topContext = scoredKnowledge.slice(0, 3).filter(k => k.score > 0.4).map(k => k.content).join("\n\n");
+  console.log('Found context items:', topContext.length > 0 ? 'Yes' : 'No');
 
   // 4. Fetch Chat History (Last 3 days, max 20 messages)
   let historyMessages = [];
@@ -98,6 +106,7 @@ async function generateResponse(userMessage, remoteJid) {
       role: r.role === 'assistant' ? 'assistant' : 'user',
       content: r.message
     }));
+    console.log(`Fetched ${historyMessages.length} history messages for ${remoteJid}`);
   }
 
   // 5. Get System Prompt & Model
@@ -112,6 +121,7 @@ async function generateResponse(userMessage, remoteJid) {
       { role: "user", content: userMessage }
     ];
 
+    console.log(`Sending request to OpenAI using model: ${model}`);
     const completion = await openai.chat.completions.create({
       model: model,
       messages: messages,
@@ -121,6 +131,7 @@ async function generateResponse(userMessage, remoteJid) {
     const tokensUsed = completion.usage.total_tokens;
 
     updateTokenUsage(tokensUsed);
+    console.log('OpenAI response received, tokens used:', tokensUsed);
 
     return reply;
   } catch (error) {

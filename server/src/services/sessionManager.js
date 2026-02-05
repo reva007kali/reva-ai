@@ -97,17 +97,25 @@ function createSession(io, sessionId, description = '') {
     const remoteJid = message.from;
     const userMsg = message.body;
 
+    console.log(`[${sessionId}] Received message from ${remoteJid}: ${userMsg.substring(0, 50)}...`);
+    console.log(`[${sessionId}] Bot Enabled: ${botEnabled}`);
+
     // Log User Message
     db.prepare("INSERT INTO chats (remote_jid, local_jid, role, message) VALUES (?, ?, ?, ?)").run(remoteJid, sessionId, 'user', userMsg);
     io.emit('new_message', { remote_jid: remoteJid, local_jid: sessionId, role: 'user', message: userMsg, timestamp: new Date() });
 
-    if (!botEnabled) return;
+    if (!botEnabled) {
+      console.log(`[${sessionId}] Bot is disabled, skipping response.`);
+      return;
+    }
 
     // Response
     const chat = await message.getChat();
     chat.sendStateTyping();
 
+    console.log(`[${sessionId}] Generating AI response...`);
     const aiResponse = await generateResponse(userMsg, remoteJid);
+    console.log(`[${sessionId}] AI Response: ${aiResponse.substring(0, 50)}...`);
 
     await message.reply(aiResponse);
 
