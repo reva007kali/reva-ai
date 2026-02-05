@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import { Power, Activity, Smartphone, Clock, PieChart, Plus, Trash2, SmartphoneCharging } from 'lucide-react';
 
-const socket = io('http://localhost:3001');
+const socket = io();
 
 const Dashboard = () => {
   const [sessions, setSessions] = useState([]);

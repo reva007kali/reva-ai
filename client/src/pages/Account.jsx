@@ -28,12 +28,12 @@ const Account = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/api/me', {
+        const res = await axios.get('/api/me', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(res.data);
         if (res.data.logo_path) {
-          setLogoPreview(`http://localhost:3001${res.data.logo_path}`);
+          setLogoPreview(res.data.logo_path);
         }
       } catch (err) {
         console.error(err);
@@ -63,7 +63,7 @@ const Account = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:3001/api/account/update', formData, {
+      const res = await axios.post('/api/account/update', formData, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -92,7 +92,7 @@ const Account = () => {
     setPassMessage('');
 
     try {
-      await axios.post('http://localhost:3001/api/account/password', {
+      await axios.post('/api/account/password', {
         currentPassword: passwords.currentPassword,
         newPassword: passwords.newPassword
       }, {

@@ -15,8 +15,8 @@ const KnowledgeBase = () => {
   const fetchData = async () => {
     try {
       const [catsRes, knowRes] = await Promise.all([
-        axios.get('http://localhost:3001/api/categories', { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get('http://localhost:3001/api/knowledge', { headers: { Authorization: `Bearer ${token}` } })
+        axios.get('/api/categories', { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get('/api/knowledge', { headers: { Authorization: `Bearer ${token}` } })
       ]);
       setCategories(catsRes.data);
       setKnowledge(knowRes.data);
@@ -33,7 +33,7 @@ const KnowledgeBase = () => {
   const addCategory = async () => {
     if (!newCatName) return;
     try {
-      await axios.post('http://localhost:3001/api/categories', 
+      await axios.post('/api/categories', 
         { name: newCatName, description: '' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -47,7 +47,7 @@ const KnowledgeBase = () => {
   const deleteCategory = async (id) => {
     if (!window.confirm('Delete this category?')) return;
     try {
-      await axios.delete(`http://localhost:3001/api/categories/${id}`, {
+      await axios.delete(`/api/categories/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchData();
@@ -61,13 +61,13 @@ const KnowledgeBase = () => {
     setLoading(true);
     try {
       if (editingId) {
-        await axios.put(`http://localhost:3001/api/knowledge/${editingId}`, 
+        await axios.put(`/api/knowledge/${editingId}`, 
           { content: newKnowledge },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setEditingId(null);
       } else {
-        await axios.post('http://localhost:3001/api/knowledge', 
+        await axios.post('/api/knowledge', 
           { category_id: selectedCat, content: newKnowledge },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -94,7 +94,7 @@ const KnowledgeBase = () => {
   const deleteKnowledge = async (id) => {
     if (!window.confirm('Delete this item?')) return;
     try {
-      await axios.delete(`http://localhost:3001/api/knowledge/${id}`, {
+      await axios.delete(`/api/knowledge/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchData();
