@@ -30,21 +30,35 @@ function createSession(io, sessionId, description = '') {
   statuses.set(sessionId, { status: 'initializing', qr: '' });
   broadcastStatus(io, sessionId);
 
+  const puppeteerConfig = {
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process', 
+      '--disable-gpu'
+    ]
+  };
+
+  // Try to find system Chrome/Chromium if available (more stable on VPS)
+  if (process.platform === 'linux') {
+    const fs = require('fs');
+    if (fs.existsSync('/usr/bin/google-chrome-stable')) {
+      puppeteerConfig.executablePath = '/usr/bin/google-chrome-stable';
+    } else if (fs.existsSync('/usr/bin/chromium-browser')) {
+      puppeteerConfig.executablePath = '/usr/bin/chromium-browser';
+    }
+  }
+
   const client = new Client({
     authStrategy: new LocalAuth({ clientId: sessionId, dataPath: './sessions_data' }),
-    puppeteer: {
-      headless: true,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process', 
-        '--disable-gpu'
-      ]
-    }
+    puppeteer: puppeteerConfig,
+    qrMaxRetries: 10,
+    authTimeoutMs: 60000,
   });
 
   client.on('qr', (qr) => {
