@@ -16,20 +16,21 @@ if (!username || !password) {
 }
 
 try {
-  // Check if user exists
-  const existing = db.prepare('SELECT id FROM users WHERE username = ?').get(username);
-  if (existing) {
-    console.error(`Error: User "${username}" already exists.`);
-    process.exit(1);
-  }
-
   // Hash password
   const hash = bcrypt.hashSync(password, 10);
 
-  // Insert user
-  const info = db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run(username, hash);
+  // Check if user exists
+  const existing = db.prepare('SELECT id FROM users WHERE username = ?').get(username);
   
-  console.log(`Success! User "${username}" created with ID: ${info.lastInsertRowid}`);
+  if (existing) {
+    console.log(`User "${username}" exists. Updating password...`);
+    db.prepare('UPDATE users SET password = ? WHERE id = ?').run(hash, existing.id);
+    console.log('✅ Password updated successfully.');
+  } else {
+    // Insert user
+    const info = db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run(username, hash);
+    console.log(`✅ Success! User "${username}" created with ID: ${info.lastInsertRowid}`);
+  }
 
 } catch (err) {
   console.error('Database Error:', err.message);

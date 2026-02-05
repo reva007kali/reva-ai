@@ -1,24 +1,24 @@
-2026/02/05-13:59:25.581 4e04 Reusing MANIFEST C:\Coding\reva-ai\server\sessions_data\session-default\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/02/05-13:59:25.582 4e04 Recovering log #139
-2026/02/05-13:59:25.606 4e04 Reusing old log C:\Coding\reva-ai\server\sessions_data\session-default\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000139.log 
-2026/02/05-13:59:38.123 4854 Level-0 table #150: started
-2026/02/05-13:59:38.215 4854 Level-0 table #150: 1324604 bytes OK
-2026/02/05-13:59:38.218 4854 Delete type=0 #139
-2026/02/05-13:59:38.222 4854 Compacting 1@1 + 7@2 files
-2026/02/05-13:59:38.318 4854 Generated table #151@1: 33652 keys, 2193350 bytes
-2026/02/05-13:59:38.365 4854 Generated table #152@1: 3944 keys, 2163948 bytes
-2026/02/05-13:59:38.432 4854 Generated table #153@1: 13938 keys, 2179946 bytes
-2026/02/05-13:59:38.530 4854 Generated table #154@1: 31051 keys, 2233275 bytes
-2026/02/05-13:59:38.622 4854 Generated table #155@1: 54555 keys, 2192576 bytes
-2026/02/05-13:59:38.751 4854 Generated table #156@1: 107994 keys, 2259416 bytes
-2026/02/05-13:59:38.790 4854 Generated table #157@1: 38542 keys, 883249 bytes
-2026/02/05-13:59:38.791 4854 Compacted 1@1 + 7@2 files => 14105760 bytes
-2026/02/05-13:59:38.792 4854 compacted to: files[ 0 0 7 0 0 0 0 ]
-2026/02/05-13:59:38.793 4854 Delete type=2 #141
-2026/02/05-13:59:38.793 4854 Delete type=2 #142
-2026/02/05-13:59:38.793 4854 Delete type=2 #143
-2026/02/05-13:59:38.793 4854 Delete type=2 #144
-2026/02/05-13:59:38.793 4854 Delete type=2 #145
-2026/02/05-13:59:38.793 4854 Delete type=2 #146
-2026/02/05-13:59:38.793 4854 Delete type=2 #147
-2026/02/05-13:59:38.794 4854 Delete type=2 #150
+2026/02/05-14:26:39.241 4d34 Reusing MANIFEST C:\Coding\reva-ai\server\sessions_data\session-default\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/05-14:26:39.242 4d34 Recovering log #149
+2026/02/05-14:26:39.270 4d34 Reusing old log C:\Coding\reva-ai\server\sessions_data\session-default\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000149.log 
+2026/02/05-14:33:58.843 4d34 Level-0 table #160: started
+2026/02/05-14:33:59.294 4d34 Level-0 table #160: 1350216 bytes OK
+2026/02/05-14:33:59.299 4d34 Delete type=0 #149
+2026/02/05-14:34:03.067 4d34 Compacting 1@1 + 7@2 files
+2026/02/05-14:34:03.188 4d34 Generated table #161@1: 34794 keys, 2198006 bytes
+2026/02/05-14:34:03.294 4d34 Generated table #162@1: 3880 keys, 2163562 bytes
+2026/02/05-14:34:03.438 4d34 Generated table #163@1: 13268 keys, 2177439 bytes
+2026/02/05-14:34:03.770 4d34 Generated table #164@1: 31516 keys, 2235945 bytes
+2026/02/05-14:34:03.889 4d34 Generated table #165@1: 51457 keys, 2188340 bytes
+2026/02/05-14:34:04.438 4d34 Generated table #166@1: 107928 keys, 2259944 bytes
+2026/02/05-14:34:04.499 4d34 Generated table #167@1: 42568 keys, 964600 bytes
+2026/02/05-14:34:04.499 4d34 Compacted 1@1 + 7@2 files => 14187836 bytes
+2026/02/05-14:34:04.500 4d34 compacted to: files[ 0 0 7 0 0 0 0 ]
+2026/02/05-14:34:04.503 4d34 Delete type=2 #151
+2026/02/05-14:34:04.515 4d34 Delete type=2 #152
+2026/02/05-14:34:04.515 4d34 Delete type=2 #153
+2026/02/05-14:34:04.517 4d34 Delete type=2 #154
+2026/02/05-14:34:04.520 4d34 Delete type=2 #155
+2026/02/05-14:34:04.528 4d34 Delete type=2 #156
+2026/02/05-14:34:04.528 4d34 Delete type=2 #157
+2026/02/05-14:34:04.529 4d34 Delete type=2 #160
