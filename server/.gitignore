@@ -1,0 +1,28 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+
+# Runtime / sessions / cache (WAJIB)
+server/sessions_data/
+server/session/
+server/.wwebjs_cache/
+
+# Browser / puppeteer leftovers
+DevToolsActivePort
+*.log
+
+# Databases
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# AI / tooling
+.trae/
+
+# OS
+.DS_Store
+Thumbs.db

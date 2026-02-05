@@ -1,0 +1,6 @@
+2026/02/05-11:37:04.359 37fc Reusing MANIFEST C:\Coding\reva-ai\server\session\session\Default\Local Storage\leveldb/MANIFEST-000001
+2026/02/05-11:37:04.448 37fc Recovering log #3
+2026/02/05-11:37:04.493 37fc Reusing old log C:\Coding\reva-ai\server\session\session\Default\Local Storage\leveldb/000003.log 
+2026/02/05-11:47:12.403 37fc Level-0 table #5: started
+2026/02/05-11:47:12.418 37fc Level-0 table #5: 15279 bytes OK
+2026/02/05-11:47:12.422 37fc Delete type=0 #3
