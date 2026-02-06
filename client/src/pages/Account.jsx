@@ -107,59 +107,61 @@ const Account = () => {
   };
 
   return (
-    <div className="p-8 pb-20 overflow-y-auto h-screen">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8">Account Settings</h2>
+    <div className="p-4 md:p-8 pb-20 overflow-y-auto h-screen text-gray-100">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-white">Account Settings</h2>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         {/* Profile Section */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h3 className="font-bold text-gray-700 mb-6 flex items-center gap-2">
-            <User size={20} /> Profile Information
+        <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700">
+          <h3 className="font-bold text-gray-200 mb-6 flex items-center gap-2">
+            <User size={20} className="text-blue-400" /> Profile Information
           </h3>
 
           <form onSubmit={handleProfileUpdate} className="space-y-4">
             {/* Logo Upload */}
             <div className="flex items-center gap-6 mb-6">
-              <div className="w-20 h-20 rounded-full bg-gray-100 overflow-hidden flex items-center justify-center border border-gray-200">
+              <div className="w-20 h-20 rounded-full bg-gray-700 overflow-hidden flex items-center justify-center border border-gray-600">
                 {logoPreview ? (
                   <img src={logoPreview} alt="Logo" className="w-full h-full object-cover" />
                 ) : (
-                  <User size={32} className="text-gray-400" />
+                  <User size={32} className="text-gray-500" />
                 )}
               </div>
               <div>
-                <label className="cursor-pointer bg-gray-50 border border-gray-300 hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                <label className="cursor-pointer bg-gray-700 border border-gray-600 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
                   <Upload size={16} /> Change Logo
                   <input type="file" accept="image/*" onChange={handleLogoChange} className="hidden" />
                 </label>
-                <p className="text-xs text-gray-400 mt-2">Recommended: 200x200px (PNG/JPG)</p>
+                <p className="text-xs text-gray-500 mt-2">Recommended: 200x200px (PNG/JPG)</p>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Display Name</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">Display Name</label>
               <div className="relative">
-                <User size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <User size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
                 <input
                   type="text"
                   value={user.display_name || ''}
                   onChange={(e) => setUser({ ...user, display_name: e.target.value })}
-                  className="w-full border rounded-lg pl-10 p-2 focus:outline-none focus:border-green-500"
+                  className="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 p-2 text-white focus:outline-none focus:border-green-500"
                   placeholder="e.g. Reva Assistant"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">Email Address</label>
               <div className="relative">
-                <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
                 <input
                   type="email"
                   value={user.email || ''}
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
-                  className="w-full border rounded-lg pl-10 p-2 focus:outline-none focus:border-green-500"
+                  className="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 p-2 text-white focus:outline-none focus:border-green-500"
                   placeholder="admin@example.com"
                 />
               </div>
@@ -169,12 +171,12 @@ const Account = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center gap-2 w-full justify-center"
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center gap-2 w-full justify-center transition-colors"
               >
                 {loading ? 'Saving...' : <><Save size={18} /> Save Profile</>}
               </button>
               {message && (
-                <p className={`text-center text-sm mt-3 ${message.includes('success') ? 'text-green-600' : 'text-red-500'}`}>
+                <p className={`text-center text-sm mt-3 ${message.includes('success') ? 'text-green-400' : 'text-red-400'}`}>
                   {message}
                 </p>
               )}
@@ -183,41 +185,41 @@ const Account = () => {
         </div>
 
         {/* Security Section */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 h-fit">
-          <h3 className="font-bold text-gray-700 mb-6 flex items-center gap-2">
-            <Lock size={20} /> Security
+        <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 h-fit">
+          <h3 className="font-bold text-gray-200 mb-6 flex items-center gap-2">
+            <Lock size={20} className="text-yellow-400" /> Security
           </h3>
 
           <form onSubmit={handlePasswordUpdate} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">Current Password</label>
               <input
                 type="password"
                 value={passwords.currentPassword}
                 onChange={(e) => setPasswords({ ...passwords, currentPassword: e.target.value })}
-                className="w-full border rounded-lg p-2 focus:outline-none focus:border-green-500"
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white focus:outline-none focus:border-green-500"
                 placeholder="••••••••"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">New Password</label>
               <input
                 type="password"
                 value={passwords.newPassword}
                 onChange={(e) => setPasswords({ ...passwords, newPassword: e.target.value })}
-                className="w-full border rounded-lg p-2 focus:outline-none focus:border-green-500"
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white focus:outline-none focus:border-green-500"
                 placeholder="••••••••"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">Confirm New Password</label>
               <input
                 type="password"
                 value={passwords.confirmPassword}
                 onChange={(e) => setPasswords({ ...passwords, confirmPassword: e.target.value })}
-                className="w-full border rounded-lg p-2 focus:outline-none focus:border-green-500"
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white focus:outline-none focus:border-green-500"
                 placeholder="••••••••"
               />
             </div>
@@ -226,12 +228,12 @@ const Account = () => {
               <button 
                 type="submit" 
                 disabled={passLoading}
-                className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-900 disabled:opacity-50 flex items-center gap-2 w-full justify-center"
+                className="bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-600 disabled:opacity-50 flex items-center gap-2 w-full justify-center transition-colors"
               >
                 {passLoading ? 'Updating...' : 'Update Password'}
               </button>
               {passMessage && (
-                <p className={`text-center text-sm mt-3 ${passMessage.includes('success') ? 'text-green-600' : 'text-red-500'}`}>
+                <p className={`text-center text-sm mt-3 ${passMessage.includes('success') ? 'text-green-400' : 'text-red-400'}`}>
                   {passMessage}
                 </p>
               )}

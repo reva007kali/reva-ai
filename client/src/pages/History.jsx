@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { User, Bot, MessageSquare, Search, ChevronRight } from 'lucide-react';
+import { User, Bot, MessageSquare, Search, ChevronRight, Plus, Mic, Lock } from 'lucide-react';
 
 const History = () => {
   const [conversations, setConversations] = useState([]);
@@ -70,49 +70,69 @@ const History = () => {
   );
 
   return (
-    <div className="h-screen flex bg-gray-50 overflow-hidden">
+    <div className="h-screen flex bg-[#111b21] overflow-hidden text-[#e9edef]">
       
       {/* Left Sidebar: Conversation List */}
-      <div className="w-1/3 bg-white border-r border-gray-200 flex flex-col">
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Messages</h2>
+      <div className={`w-full md:w-[350px] lg:w-[400px] border-r border-[#202c33] flex flex-col bg-[#111b21] ${selectedJid ? 'hidden md:flex' : 'flex'}`}>
+        
+        {/* Sidebar Header */}
+        <div className="h-16 px-4 bg-[#202c33] flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-4">
+             <div className="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center">
+               <User size={24} className="text-white" />
+             </div>
+             <h2 className="font-bold text-[#e9edef]">Chats</h2>
+          </div>
+          <div className="flex gap-4 text-[#aebac1]">
+            <MessageSquare size={20} />
+            <Bot size={20} />
+          </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="p-2 border-b border-[#202c33]">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#aebac1]" size={18} />
             <input
               type="text"
-              placeholder="Search conversations..."
+              placeholder="Search or start new chat"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-100 border-none rounded-lg pl-10 p-2 text-sm focus:ring-2 focus:ring-green-500"
+              className="w-full bg-[#202c33] rounded-lg pl-12 pr-4 py-2 text-sm text-[#d1d7db] placeholder-[#8696a0] focus:outline-none"
             />
           </div>
         </div>
 
+        {/* Conversation List */}
         <div className="flex-1 overflow-y-auto">
           {filteredConversations.length === 0 ? (
-            <p className="text-center text-gray-400 p-8">No conversations found.</p>
+            <div className="flex flex-col items-center justify-center h-full text-[#8696a0]">
+              <p>No chats found.</p>
+            </div>
           ) : (
             filteredConversations.map((conv) => (
               <div
                 key={conv.remote_jid}
                 onClick={() => setSelectedJid(conv.remote_jid)}
-                className={`p-4 border-b border-gray-100 cursor-pointer transition-colors hover:bg-gray-50 ${
-                  selectedJid === conv.remote_jid ? 'bg-green-50 border-l-4 border-l-green-500' : ''
+                className={`flex items-center p-3 cursor-pointer hover:bg-[#202c33] transition-colors ${
+                  selectedJid === conv.remote_jid ? 'bg-[#2a3942]' : ''
                 }`}
               >
-                <div className="flex justify-between items-start mb-1">
-                  <span className="font-semibold text-gray-800 text-sm truncate w-3/4">
-                    {conv.remote_jid.replace('@c.us', '')}
-                  </span>
-                  <span className="text-xs text-gray-400 whitespace-nowrap">
-                    {new Date(conv.timestamp).toLocaleDateString()}
-                  </span>
+                <div className="w-12 h-12 rounded-full bg-[#6a7175] flex items-center justify-center shrink-0 mr-3">
+                  <User size={24} className="text-[#cfd4d6]" />
                 </div>
-                <div className="flex justify-between items-center">
-                  <p className="text-sm text-gray-500 truncate w-5/6">
+                <div className="flex-1 min-w-0 border-b border-[#222d34] pb-3 justify-center flex flex-col h-full">
+                  <div className="flex justify-between items-baseline mb-1">
+                    <h3 className="text-[#e9edef] font-normal truncate text-base">
+                      {conv.remote_jid.replace('@c.us', '')}
+                    </h3>
+                    <span className="text-xs text-[#8696a0] shrink-0 ml-2">
+                      {new Date(conv.timestamp).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <p className="text-sm text-[#8696a0] truncate">
                     {conv.last_message}
                   </p>
-                  <ChevronRight size={16} className="text-gray-300" />
                 </div>
               </div>
             ))
@@ -121,38 +141,51 @@ const History = () => {
       </div>
 
       {/* Main Area: Chat Window */}
-      <div className="flex-1 flex flex-col bg-[#efeae2]">
+      <div className={`flex-1 flex flex-col bg-[#0b141a] relative ${!selectedJid ? 'hidden md:flex' : 'flex'}`}>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.06] pointer-events-none z-0" style={{ backgroundImage: "url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')" }}></div>
+
         {selectedJid ? (
           <>
-            {/* Header */}
-            <div className="bg-white p-4 border-b border-gray-200 flex items-center gap-3 shadow-sm z-10">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-                <User size={20} className="text-gray-500" />
+            {/* Chat Header */}
+            <div className="h-16 px-4 bg-[#202c33] flex items-center justify-between shrink-0 z-10 border-l border-[#222d34]">
+              <div className="flex items-center gap-4">
+                {/* Mobile Back Button */}
+                <button onClick={() => setSelectedJid(null)} className="md:hidden text-[#aebac1]">
+                  <ChevronRight size={24} className="rotate-180" />
+                </button>
+                
+                <div className="w-10 h-10 rounded-full bg-[#6a7175] flex items-center justify-center">
+                  <User size={20} className="text-[#cfd4d6]" />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <h3 className="text-[#e9edef] font-normal">
+                    {selectedJid.replace('@c.us', '')}
+                  </h3>
+                  <p className="text-xs text-[#8696a0]">click here for contact info</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-gray-800">
-                  {selectedJid.replace('@c.us', '')}
-                </h3>
-                <p className="text-xs text-green-600">Active Conversation</p>
+              <div className="flex gap-6 text-[#aebac1]">
+                <Search size={20} />
               </div>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {/* Messages Area */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-2 z-10 relative">
               {messages.map((msg) => (
                 <div 
                   key={msg.id} 
                   className={`flex ${msg.role === 'assistant' ? 'justify-start' : 'justify-end'}`}
                 >
                   <div 
-                    className={`max-w-[70%] p-3 rounded-lg shadow-sm relative ${
+                    className={`max-w-[85%] md:max-w-[65%] px-2 py-1.5 rounded-lg shadow-[0_1px_0.5px_rgba(0,0,0,0.13)] relative text-sm ${
                       msg.role === 'assistant' 
-                        ? 'bg-white text-gray-800 rounded-tl-none' 
-                        : 'bg-[#d9fdd3] text-gray-900 rounded-tr-none'
+                        ? 'bg-[#202c33] text-[#e9edef] rounded-tl-none' 
+                        : 'bg-[#005c4b] text-[#e9edef] rounded-tr-none'
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed pb-4">{msg.message}</p>
-                    <span className="text-[10px] text-gray-400 absolute bottom-1 right-2">
+                    <p className="whitespace-pre-wrap leading-relaxed px-1 pb-4">{msg.message}</p>
+                    <span className={`text-[10px] absolute bottom-1 right-2 ${msg.role === 'assistant' ? 'text-[#8696a0]' : 'text-[#8696a0]'}`}>
                       {new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                     </span>
                   </div>
@@ -160,13 +193,30 @@ const History = () => {
               ))}
               <div ref={messagesEndRef} />
             </div>
+
+            {/* Input Placeholder (Visual Only) */}
+            <div className="h-16 bg-[#202c33] px-4 flex items-center gap-4 shrink-0 z-10">
+               <div className="p-2 text-[#8696a0]">
+                 <Plus size={24} />
+               </div>
+               <div className="flex-1 bg-[#2a3942] rounded-lg px-4 py-2 text-[#8696a0] text-sm cursor-not-allowed">
+                 Type a message (Read-only view)
+               </div>
+               <div className="p-2 text-[#8696a0]">
+                 <Mic size={24} />
+               </div>
+            </div>
           </>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center text-gray-400 bg-gray-50">
-            <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mb-4">
-              <MessageSquare size={40} className="text-gray-400" />
+          <div className="flex-1 flex flex-col items-center justify-center text-[#8696a0] z-10 border-b-[6px] border-green-500">
+            <div className="max-w-[80%] text-center">
+              <h2 className="text-3xl font-light text-[#e9edef] mb-4">Reva AI for Windows</h2>
+              <p className="text-sm">Send and receive messages without keeping your phone online.</p>
+              <p className="text-sm mt-1">Use Reva AI on up to 4 linked devices and 1 phone.</p>
+              <div className="mt-8 flex items-center justify-center gap-2 text-xs">
+                <Lock size={12} /> End-to-end encrypted
+              </div>
             </div>
-            <p className="text-lg font-medium">Select a conversation to view history</p>
           </div>
         )}
       </div>

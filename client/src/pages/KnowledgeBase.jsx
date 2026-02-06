@@ -106,15 +106,15 @@ const KnowledgeBase = () => {
   const filteredKnowledge = knowledge.filter(k => k.category_id === parseInt(selectedCat));
 
   return (
-    <div className="p-8 h-screen flex flex-col">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8">Knowledge Base</h2>
+    <div className="p-4 md:p-8 h-screen flex flex-col text-gray-100 overflow-hidden">
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">Knowledge Base</h2>
       
-      <div className="flex gap-8 flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-8 flex-1 overflow-hidden">
         {/* Categories Sidebar */}
-        <div className="w-1/3 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col">
-          <div className="p-4 border-b border-gray-100">
-            <h3 className="font-bold text-gray-700 mb-4 flex items-center gap-2">
-              <FolderPlus size={20} /> Categories
+        <div className="w-full md:w-1/3 bg-gray-800 rounded-xl shadow-sm border border-gray-700 flex flex-col max-h-[300px] md:max-h-none">
+          <div className="p-4 border-b border-gray-700">
+            <h3 className="font-bold text-gray-200 mb-4 flex items-center gap-2">
+              <FolderPlus size={20} className="text-blue-400" /> Categories
             </h3>
             <div className="flex gap-2">
               <input
@@ -122,11 +122,11 @@ const KnowledgeBase = () => {
                 value={newCatName}
                 onChange={(e) => setNewCatName(e.target.value)}
                 placeholder="New Category Name"
-                className="flex-1 border rounded px-2 py-1 text-sm"
+                className="flex-1 bg-gray-900 border border-gray-600 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-green-500"
               />
               <button 
                 onClick={addCategory}
-                className="bg-green-600 text-white p-1 rounded hover:bg-green-700"
+                className="bg-green-600 text-white p-1 rounded hover:bg-green-700 transition-colors"
               >
                 <Plus size={20} />
               </button>
@@ -138,14 +138,16 @@ const KnowledgeBase = () => {
               <div 
                 key={cat.id}
                 onClick={() => setSelectedCat(cat.id)}
-                className={`flex justify-between items-center p-3 rounded-lg cursor-pointer mb-1 ${
-                  parseInt(selectedCat) === cat.id ? 'bg-green-50 text-green-700 border border-green-200' : 'hover:bg-gray-50'
+                className={`flex justify-between items-center p-3 rounded-lg cursor-pointer mb-1 transition-colors ${
+                  parseInt(selectedCat) === cat.id 
+                    ? 'bg-green-900/30 text-green-400 border border-green-800' 
+                    : 'text-gray-400 hover:bg-gray-700 hover:text-white'
                 }`}
               >
                 <span className="font-medium">{cat.name}</span>
                 <button 
                   onClick={(e) => { e.stopPropagation(); deleteCategory(cat.id); }}
-                  className="text-gray-400 hover:text-red-500"
+                  className="text-gray-500 hover:text-red-400 transition-colors"
                 >
                   <Trash2 size={16} />
                 </button>
@@ -155,23 +157,23 @@ const KnowledgeBase = () => {
         </div>
 
         {/* Knowledge Content */}
-        <div className="w-2/3 flex flex-col gap-6">
+        <div className="w-full md:w-2/3 flex flex-col gap-6 overflow-hidden">
           {/* Add Knowledge Form */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h3 className="font-bold text-gray-700 mb-4 flex items-center gap-2">
-              <FileText size={20} /> {editingId ? 'Edit Knowledge' : 'Add Knowledge'}
+          <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 shrink-0">
+            <h3 className="font-bold text-gray-200 mb-4 flex items-center gap-2">
+              <FileText size={20} className="text-yellow-400" /> {editingId ? 'Edit Knowledge' : 'Add Knowledge'}
             </h3>
             <textarea
               value={newKnowledge}
               onChange={(e) => setNewKnowledge(e.target.value)}
               placeholder="Enter knowledge text here..."
-              className="w-full border rounded-lg p-3 text-sm min-h-[100px] mb-3 focus:outline-none focus:border-green-500"
+              className="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-sm min-h-[100px] mb-3 text-white focus:outline-none focus:border-green-500 placeholder-gray-500"
             />
             <div className="flex justify-end gap-2">
               {editingId && (
                 <button 
                   onClick={cancelEdit}
-                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300"
+                  className="bg-gray-700 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
                 >
                   Cancel
                 </button>
@@ -179,7 +181,7 @@ const KnowledgeBase = () => {
               <button 
                 onClick={addKnowledge}
                 disabled={loading}
-                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center gap-2"
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center gap-2 transition-colors"
               >
                 {loading ? 'Processing...' : <>{editingId ? <Pencil size={18} /> : <Plus size={18} />} {editingId ? 'Update' : 'Add to Database'}</>}
               </button>
@@ -187,26 +189,26 @@ const KnowledgeBase = () => {
           </div>
 
           {/* List */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 flex-1 overflow-hidden flex flex-col">
-            <div className="p-4 border-b border-gray-100 bg-gray-50">
-              <h3 className="font-bold text-gray-700">
+          <div className="bg-gray-800 rounded-xl shadow-sm border border-gray-700 flex-1 overflow-hidden flex flex-col">
+            <div className="p-4 border-b border-gray-700 bg-gray-800/50">
+              <h3 className="font-bold text-gray-200">
                 Items in "{categories.find(c => c.id === parseInt(selectedCat))?.name}"
               </h3>
             </div>
             <div className="overflow-y-auto p-4 space-y-3 flex-1">
               {filteredKnowledge.map(item => (
-                <div key={item.id} className="p-4 border border-gray-200 rounded-lg hover:border-green-200 transition-colors group relative">
-                  <p className="text-gray-600 text-sm whitespace-pre-wrap">{item.content}</p>
+                <div key={item.id} className="p-4 border border-gray-700 rounded-lg hover:border-green-500/50 transition-colors group relative bg-gray-900/50">
+                  <p className="text-gray-300 text-sm whitespace-pre-wrap">{item.content}</p>
                   <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button 
                       onClick={() => startEdit(item)}
-                      className="text-gray-300 hover:text-blue-500"
+                      className="text-gray-500 hover:text-blue-400"
                     >
                       <Pencil size={16} />
                     </button>
                     <button 
                       onClick={() => deleteKnowledge(item.id)}
-                      className="text-gray-300 hover:text-red-500"
+                      className="text-gray-500 hover:text-red-400"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -214,7 +216,7 @@ const KnowledgeBase = () => {
                 </div>
               ))}
               {filteredKnowledge.length === 0 && (
-                <p className="text-gray-400 text-center py-8">No knowledge items in this category yet.</p>
+                <p className="text-gray-500 text-center py-8">No knowledge items in this category yet.</p>
               )}
             </div>
           </div>

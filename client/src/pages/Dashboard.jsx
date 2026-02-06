@@ -118,52 +118,52 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-8 pb-20 overflow-y-auto h-screen">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h2>
+    <div className="p-4 md:p-8 pb-20 overflow-y-auto h-screen text-gray-100">
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">Dashboard</h2>
       
       {/* Top Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {/* Bot Control */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <p className="text-gray-500 text-sm">Bot Control</p>
-              <h3 className="text-xl font-bold text-gray-800">{botEnabled ? 'Active' : 'Paused'}</h3>
+              <p className="text-gray-400 text-sm">Bot Control</p>
+              <h3 className="text-xl font-bold text-white">{botEnabled ? 'Active' : 'Paused'}</h3>
             </div>
             <button 
               onClick={toggleBot}
-              className={`p-3 rounded-lg transition-colors ${botEnabled ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}`}
+              className={`p-3 rounded-lg transition-colors ${botEnabled ? 'bg-green-900/30 text-green-400' : 'bg-gray-700 text-gray-400'}`}
             >
               <Power size={24} />
             </button>
           </div>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-500">
             {scheduleEnabled ? 'Controlled by Schedule' : 'Manual Control'}
           </p>
         </div>
 
         {/* Token Usage */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <p className="text-gray-500 text-sm">Daily Token Usage</p>
-              <h3 className="text-xl font-bold text-gray-800">
+              <p className="text-gray-400 text-sm">Daily Token Usage</p>
+              <h3 className="text-xl font-bold text-white">
                 {Math.round((tokenUsage.used / tokenUsage.limit) * 100)}%
               </h3>
             </div>
-            <div className="p-3 rounded-lg bg-blue-100 text-blue-600">
+            <div className="p-3 rounded-lg bg-blue-900/30 text-blue-400">
               <PieChart size={24} />
             </div>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+          <div className="w-full bg-gray-700 rounded-full h-2.5 mb-2">
             <div 
               className="bg-blue-600 h-2.5 rounded-full transition-all duration-500" 
               style={{ width: `${Math.min((tokenUsage.used / tokenUsage.limit) * 100, 100)}%` }}
             ></div>
           </div>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-500">
             {tokenUsage.used.toLocaleString()} / {tokenUsage.limit.toLocaleString()} tokens
-            <span className="block mt-1 font-semibold text-gray-500">
+            <span className="block mt-1 font-semibold text-gray-400">
               Est. Cost: {calculateEstimatedCost()}
             </span>
           </p>
@@ -173,25 +173,25 @@ const Dashboard = () => {
       {/* Connected Devices Section */}
       <div className="mb-8">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-bold text-gray-800">Connected Devices</h3>
+          <h3 className="text-xl font-bold text-white">Connected Devices</h3>
           <button 
             onClick={() => setShowAddModal(true)}
-            className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 flex items-center gap-2"
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center gap-2"
           >
-            <Plus size={18} /> Add Device
+            <Plus size={18} /> <span className="hidden md:inline">Add Device</span>
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {sessions.map(session => (
-            <div key={session.session_id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
-              <div className="p-6 border-b border-gray-50 flex justify-between items-start">
+            <div key={session.session_id} className="bg-gray-800 rounded-xl shadow-sm border border-gray-700 overflow-hidden flex flex-col">
+              <div className="p-6 border-b border-gray-700 flex justify-between items-start">
                 <div className="flex items-center gap-3">
-                  <div className={`p-3 rounded-lg ${session.status === 'online' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'}`}>
+                  <div className={`p-3 rounded-lg ${session.status === 'online' ? 'bg-green-900/30 text-green-400' : 'bg-gray-700 text-gray-500'}`}>
                     <SmartphoneCharging size={24} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-800">{session.description || session.session_id}</h4>
+                    <h4 className="font-bold text-white">{session.description || session.session_id}</h4>
                     <p className={`text-sm font-medium capitalize ${getStatusColor(session.status)}`}>
                       {session.status.replace('_', ' ')}
                     </p>
@@ -199,7 +199,7 @@ const Dashboard = () => {
                 </div>
                 <button 
                   onClick={() => deleteSession(session.session_id)}
-                  className="text-gray-400 hover:text-red-500 transition-colors"
+                  className="text-gray-500 hover:text-red-400 transition-colors"
                   title="Disconnect"
                 >
                   <Trash2 size={18} />
@@ -208,7 +208,7 @@ const Dashboard = () => {
 
               {/* QR Code Area */}
               {(session.status === 'scan_qr' || (session.status === 'disconnected' && session.qr)) && (
-                <div className="p-6 bg-gray-50 flex flex-col items-center justify-center text-center">
+                <div className="p-6 bg-gray-900 flex flex-col items-center justify-center text-center">
                   <div className="bg-white p-2 rounded-lg shadow-sm mb-3">
                     <QRCodeSVG value={session.qr || 'loading'} size={180} />
                   </div>
@@ -217,17 +217,17 @@ const Dashboard = () => {
               )}
               
               {session.status === 'online' && (
-                <div className="p-6 bg-green-50/50 flex flex-col items-center justify-center flex-1 min-h-[150px]">
+                <div className="p-6 bg-green-900/10 flex flex-col items-center justify-center flex-1 min-h-[150px]">
                   <Activity className="text-green-500 mb-2" size={32} />
-                  <p className="text-green-700 font-medium">Device Active</p>
-                  <p className="text-xs text-green-600 mt-1">Ready to reply</p>
+                  <p className="text-green-400 font-medium">Device Active</p>
+                  <p className="text-xs text-green-500/70 mt-1">Ready to reply</p>
                 </div>
               )}
             </div>
           ))}
 
           {sessions.length === 0 && (
-            <div className="col-span-full bg-gray-50 border border-dashed border-gray-300 rounded-xl p-8 text-center text-gray-400">
+            <div className="col-span-full bg-gray-800 border border-dashed border-gray-600 rounded-xl p-8 text-center text-gray-400">
               <Smartphone size={48} className="mx-auto mb-4 opacity-50" />
               <p>No devices connected. Click "Add Device" to start.</p>
             </div>
@@ -237,26 +237,26 @@ const Dashboard = () => {
 
       {/* Add Device Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md">
-            <h3 className="text-xl font-bold mb-4">Add New Device</h3>
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+          <div className="bg-gray-800 rounded-xl p-6 w-full max-w-md border border-gray-700">
+            <h3 className="text-xl font-bold mb-4 text-white">Add New Device</h3>
             <input
               type="text"
               placeholder="Device Name (e.g. Sales Support)"
               value={newSessionName}
               onChange={(e) => setNewSessionName(e.target.value)}
-              className="w-full border rounded-lg p-3 mb-4 focus:outline-none focus:border-green-500"
+              className="w-full bg-gray-900 border border-gray-700 text-white rounded-lg p-3 mb-4 focus:outline-none focus:border-green-500"
             />
             <div className="flex justify-end gap-3">
               <button 
                 onClick={() => setShowAddModal(false)}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
               >
                 Cancel
               </button>
               <button 
                 onClick={addSession}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
               >
                 Create & Connect
               </button>
