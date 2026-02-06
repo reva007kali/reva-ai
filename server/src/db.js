@@ -95,6 +95,7 @@ function initDB() {
     { key: 'schedule_end', value: '17:00' },
     { key: 'openai_model', value: 'gpt-3.5-turbo' },
     { key: 'system_prompt', value: 'You are a helpful assistant.' },
+    { key: 'temperature', value: '0.7' },
     { key: 'token_limit_daily', value: '10000' },
     { key: 'tokens_used_today', value: '0' },
     { key: 'last_token_reset', value: new Date().toISOString().split('T')[0] }

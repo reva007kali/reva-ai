@@ -109,9 +109,11 @@ async function generateResponse(userMessage, remoteJid) {
     console.log(`Fetched ${historyMessages.length} history messages for ${remoteJid}`);
   }
 
-  // 5. Get System Prompt & Model
+  // 5. Get System Prompt & Model & Temperature
   const systemPrompt = db.prepare("SELECT value FROM settings WHERE key = 'system_prompt'").get().value;
   const model = db.prepare("SELECT value FROM settings WHERE key = 'openai_model'").get().value;
+  const tempRow = db.prepare("SELECT value FROM settings WHERE key = 'temperature'").get();
+  const temperature = tempRow ? parseFloat(tempRow.value) : 0.7;
 
   // 6. Call LLM
   try {
@@ -121,10 +123,11 @@ async function generateResponse(userMessage, remoteJid) {
       { role: "user", content: userMessage }
     ];
 
-    console.log(`Sending request to OpenAI using model: ${model}`);
+    console.log(`Sending request to OpenAI using model: ${model}, temp: ${temperature}`);
     const completion = await openai.chat.completions.create({
       model: model,
       messages: messages,
+      temperature: temperature,
     });
 
     const reply = completion.choices[0].message.content;

@@ -43,7 +43,7 @@ app.set('socketio', io);
 
 // Start Server
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT} (PID: ${process.pid})`);
 });
 
 // Graceful Shutdown
