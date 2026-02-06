@@ -5,7 +5,7 @@ const cors = require('cors');
 const { PORT } = require('./config');
 const routes = require('./routes');
 const path = require('path');
-const { initSessionManager, getAllStatuses } = require('./services/sessionManager');
+const { initSessionManager, getAllStatuses, shutdownAllSessions } = require('./services/sessionManager');
 const { initScheduler } = require('./services/scheduler');
 
 const app = express();
@@ -45,3 +45,21 @@ app.set('socketio', io);
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Graceful Shutdown
+const gracefulShutdown = async (signal) => {
+  console.log(`Received ${signal}, starting graceful shutdown...`);
+  try {
+    await shutdownAllSessions();
+    server.close(() => {
+      console.log('HTTP Server closed.');
+      process.exit(0);
+    });
+  } catch (err) {
+    console.error('Error during shutdown:', err);
+    process.exit(1);
+  }
+};
+
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));

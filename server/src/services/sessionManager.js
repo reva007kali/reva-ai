@@ -164,4 +164,17 @@ function getAllStatuses() {
   return result;
 }
 
-module.exports = { initSessionManager, createSession, deleteSession, getAllStatuses };
+async function shutdownAllSessions() {
+  console.log('Shutting down all sessions...');
+  const promises = [];
+  for (const [sessionId, client] of clients.entries()) {
+    console.log(`Destroying client for session: ${sessionId}`);
+    promises.push(client.destroy().catch(err => console.error(`Failed to destroy ${sessionId}:`, err)));
+  }
+  await Promise.all(promises);
+  clients.clear();
+  statuses.clear();
+  console.log('All sessions destroyed.');
+}
+
+module.exports = { initSessionManager, createSession, deleteSession, getAllStatuses, shutdownAllSessions };
