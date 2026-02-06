@@ -1,0 +1,46 @@
+# Dependency directories
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+out/
+
+# WhatsApp / Puppeteer Sessions (CRITICAL)
+server/sessions_data/
+server/session/
+server/sessions/
+server/.wwebjs_cache/
+client/sessions_data/
+sessions_data/
+.wwebjs_cache/
+.wwebjs_auth/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Databases
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+.trae/

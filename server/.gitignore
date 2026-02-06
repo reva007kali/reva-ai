@@ -7,9 +7,10 @@ yarn-error.log*
 .env
 
 # Runtime / sessions / cache (WAJIB)
-server/sessions_data/
-server/session/
-server/.wwebjs_cache/
+sessions_data/
+session/
+sessions/
+.wwebjs_cache/
 
 # Browser / puppeteer leftovers
 DevToolsActivePort

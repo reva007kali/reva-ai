@@ -54,6 +54,8 @@ function createSession(io, sessionId, description = '') {
     }
   }
 
+  console.log(`[${sessionId}] Launching Puppeteer with executable: ${puppeteerConfig.executablePath || 'Bundled Chromium'}`);
+
   const client = new Client({
     authStrategy: new LocalAuth({ clientId: sessionId, dataPath: './sessions_data' }),
     puppeteer: puppeteerConfig,

@@ -10,3 +10,7 @@ module.exports = {
     : path.join(__dirname, '../database.sqlite'),
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
 };
+
+console.log('Loaded Configuration:');
+console.log('- DB_PATH:', module.exports.DB_PATH);
+console.log('- PORT:', module.exports.PORT);
